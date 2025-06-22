@@ -1,0 +1,43 @@
+﻿@model IEnumerable<u23708795_HW_Assignment.Models.BookingConfirmation>
+
+@{
+    ViewBag.Title = "Ride History";
+}
+
+<div class="container my-4">
+    <!-- Header -->
+    <div class="text-center mb-4">
+     
+        <h2 class="fw-bold">Ride History</h2>
+    </div>
+
+    <!-- Ride Cards -->
+    <div class="row justify-content-center">
+        @foreach (var ride in Model)
+        {
+            var booking = ride.Booking;
+            var driver = ride.Driver;
+            var vehicle = ride.Vehicle;
+            var isSOS = booking.isSOS;
+            var date = booking.BookingDate.ToString("dd MMM yyyy");
+
+            <div class="col-md-10 mb-3">
+                <a href="@Url.Action("BookingConfirmed2", "Home", new { BookingID = booking.BookingID })" class="text-decoration-none text-dark">
+                    <div class="card shadow-sm p-4 @(isSOS ? "border-danger border-2" : "")">
+                        <h5 class="fw-bold @(isSOS ? "text-danger" : "")">@date @(isSOS ? "- SOS" : "")</h5>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <p><strong>ID:</strong> @booking.BookingID</p>
+                                <p><strong>Driver:</strong> @driver.FirstName</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><strong>Ambulance:</strong> @vehicle.Type</p>
+                                <p><strong>Pickup:</strong> @booking.PickupAddress</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>

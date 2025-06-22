@@ -30,9 +30,14 @@ namespace u23708795_HW_Assignment.Controllers
 
         public ActionResult MainPage()
         {
-            ViewBag.Message = "Welcome to the main page of the application.";
-            return View();
+            var model = new Assignments
+            {
+                Drivers = new List<Drivers>(),
+                Vehicles = new List<Vehicles>()
+            };
+            return View(model);
         }
+
 
         public ActionResult Services()
         {
@@ -85,7 +90,7 @@ namespace u23708795_HW_Assignment.Controllers
 
         public ActionResult Manage()
         {
-            ViewBag.Services = new List<string> { "Service1", "Service2" };
+            ViewBag.Services = ServicesList.Service; // FIXED: changed from dummy list to real services
             return View();
         }
 
@@ -98,7 +103,6 @@ namespace u23708795_HW_Assignment.Controllers
 
             if (!ModelState.IsValid)
             {
-                // Repopulate dropdowns in case of validation errors
                 ViewBag.ServiceID = booking.ServiceID;
                 ViewBag.Vehicles = VehiclesList.Vehicles.Where(v => v.ServiceID == booking.ServiceID).ToList();
                 ViewBag.Drivers = DriverList.Drivers.Where(d => d.ServiceID == booking.ServiceID).ToList();
@@ -107,21 +111,19 @@ namespace u23708795_HW_Assignment.Controllers
                 return View("Book", booking);
             }
 
-            // Assign booking details
             booking.BookingID = Guid.NewGuid();
             booking.isSOS = false;
             BookingsList.Bookings.Add(booking);
 
-            // Get associated driver and vehicle
             var driver = DriverList.Drivers.FirstOrDefault(d => d.DriverID == booking.DriverID);
             if (driver == null)
             {
-                driver = new Drivers // Fixed type name to match the provided type signature
+                driver = new Drivers
                 {
-                    FirstName = "(Unavailable)",
-                    LastName = "",
-                    PhoneNumber = "",
-                    ImagePath = "~/Content/Images/Drivers/default.png"
+                    FirstName = "---",
+                    LastName = "---",
+                    PhoneNumber = "---",
+                    ImagePath = "~/Content/Images/Drivers/Driver1.png"
                 };
             }
 
@@ -130,9 +132,9 @@ namespace u23708795_HW_Assignment.Controllers
             {
                 vehicle = new Vehicles
                 {
-                    Type = "Unknown Vehicle",
-                    RegistrationNumber = "N/A",
-                    ImagePath = "~/Content/Images/Vehicles/default.png"
+                    Type = "---",
+                    RegistrationNumber = "---",
+                    ImagePath = "~/Content/Images/Services/AA.jpeg"
                 };
             }
 
@@ -143,7 +145,76 @@ namespace u23708795_HW_Assignment.Controllers
                 Vehicle = vehicle
             };
 
-            return View("BookingConfirmed", viewModel);
+            return View("BookingConfirmation", viewModel);
         }
+
+        public ActionResult SOSBooking()
+        {
+            var random = new Random();
+
+            var availableDrivers = DriverList.Drivers;
+            var availableVehicles = VehiclesList.Vehicles;
+            var availableReasons = ReasonsList.Reasons;
+
+            if (!availableDrivers.Any() || !availableVehicles.Any())
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError, "No drivers or vehicles available for SOS booking.");
+            }
+
+            var driver = availableDrivers[random.Next(availableDrivers.Count)];
+            var vehicle = availableVehicles[random.Next(availableVehicles.Count)];
+            var reasonId = availableReasons.FirstOrDefault()?.ReasonID ?? 1;
+
+            var booking = new Bookings
+            {
+                BookingID = Guid.NewGuid(),
+                isSOS = true,
+                BookingDate = DateTime.Now,
+                PickupTime = DateTime.Now,
+                PhoneNumber = "0000000000",
+                FullName = "SOS Booking",
+                DriverID = driver.DriverID,
+                VehicleID = vehicle.VehicleID,
+                ReasonID = reasonId,
+                PickupAddress = "Current Location",
+                ServiceID = 1
+            };
+
+            BookingsList.Bookings.Add(booking);
+
+            var viewModel = new BookingConfirmation
+            {
+                Booking = booking,
+                Driver = driver,
+                Vehicle = vehicle
+            };
+
+            return View("BookingConfirmation", viewModel);
+        }
+
+
+        public ActionResult RideHistory()
+        {
+            var bookings = BookingsList.Bookings.Select(b => new BookingConfirmation
+            {
+                Booking = b,
+                Driver = DriverList.Drivers.FirstOrDefault(d => d.DriverID == b.DriverID) ?? new Drivers
+                {
+                    FirstName = "N/A",
+                    LastName = "",
+                    PhoneNumber = "",
+                    ImagePath = "~/Content/Images/Drivers/default.png"
+                },
+                Vehicle = VehiclesList.Vehicles.FirstOrDefault(v => v.VehicleID == b.VehicleID) ?? new Vehicles
+                {
+                    Type = "Unknown",
+                    RegistrationNumber = "N/A",
+                    ImagePath = "~/Content/Images/Vehicles/default.png"
+                }
+            }).ToList();
+
+            return View(bookings);
+        }
+
     }
 }

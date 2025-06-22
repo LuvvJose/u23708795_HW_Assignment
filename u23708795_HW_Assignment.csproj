@@ -214,6 +214,7 @@
     <Content Include="Views\Home\BookingConfirmation.cshtml" />
     <Content Include="Views\Home\Services.cshtml" />
     <Content Include="Views\Home\Manage.cshtml" />
+    <Content Include="Views\Home\RideHistory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
