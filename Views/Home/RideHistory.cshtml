@@ -22,7 +22,7 @@
             var date = booking.BookingDate.ToString("dd MMM yyyy");
 
             <div class="col-md-10 mb-3">
-                <a href="@Url.Action("BookingConfirmed2", "Home", new { BookingID = booking.BookingID })" class="text-decoration-none text-dark">
+                <a href="@Url.Action("BookingConfirmation", "Home", new { BookingID = booking.BookingID })" class="text-decoration-none text-dark">
                     <div class="card shadow-sm p-4 @(isSOS ? "border-danger border-2" : "")">
                         <h5 class="fw-bold @(isSOS ? "text-danger" : "")">@date @(isSOS ? "- SOS" : "")</h5>
                         <div class="row mt-2">

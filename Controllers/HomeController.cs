@@ -90,7 +90,7 @@ namespace u23708795_HW_Assignment.Controllers
 
         public ActionResult Manage()
         {
-            ViewBag.Services = ServicesList.Service; // FIXED: changed from dummy list to real services
+            ViewBag.Services = ServicesList.Service; 
             return View();
         }
 
@@ -123,7 +123,7 @@ namespace u23708795_HW_Assignment.Controllers
                     FirstName = "---",
                     LastName = "---",
                     PhoneNumber = "---",
-                    ImagePath = "~/Content/Images/Drivers/Driver1.png"
+                    ImagePath = "~/Content/Images/Drivers/Driver1.jpeg"
                 };
             }
 
@@ -203,13 +203,13 @@ namespace u23708795_HW_Assignment.Controllers
                     FirstName = "N/A",
                     LastName = "",
                     PhoneNumber = "",
-                    ImagePath = "~/Content/Images/Drivers/default.png"
+                    ImagePath = "~/Content/Images/Drivers/Driver1.png"
                 },
                 Vehicle = VehiclesList.Vehicles.FirstOrDefault(v => v.VehicleID == b.VehicleID) ?? new Vehicles
                 {
                     Type = "Unknown",
                     RegistrationNumber = "N/A",
-                    ImagePath = "~/Content/Images/Vehicles/default.png"
+                    ImagePath = "~/Content/Images/Services/AA.png"
                 }
             }).ToList();
 

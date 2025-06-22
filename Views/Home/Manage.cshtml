@@ -53,10 +53,8 @@
                         <td>@d.LastName</td>
                         <td>@d.PhoneNumber</td>
                         <td>@service</td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", "Driver", new { id = d.DriverID }, new { @class = "btn btn-sm btn-warning me-1 text-white" })
-                            @Html.ActionLink("Delete", "Delete", "Driver", new { id = d.DriverID }, new { @class = "btn btn-sm btn-danger text-white" })
-                        </td>
+                        
+                         
                     </tr>
                 }
             </tbody>
@@ -69,9 +67,9 @@
             <h3>Vehicles</h3>
             <div class="d-flex gap-2">
                 <a href="/Vehicle/Create" class="btn btn-primary">+ Add Vehicle</a>
-                <form method="post" action="@Url.Action("ExportToTextFile", "Vehicle")">
+               
                     <button type="submit" class="btn btn-success">Export .txt</button>
-                </form>
+                
             </div>
         </div>
 
@@ -94,10 +92,7 @@
                         <td>@v.Type</td>
                         <td>@v.RegistrationNumber</td>
                         <td>@service</td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", "Vehicle", new { id = v.VehicleID }, new { @class = "btn btn-sm btn-warning me-1 text-white" })
-                            @Html.ActionLink("Delete", "Delete", "Vehicle", new { id = v.VehicleID }, new { @class = "btn btn-sm btn-danger text-white" })
-                        </td>
+                       
                     </tr>
                 }
             </tbody>
@@ -105,18 +100,5 @@
     </section>
 </div>
 
-@section Scripts {
-    <script>
-        document.getElementById("btn-Search").addEventListener("click", function () {
-            const nameInput = document.getElementById("DriverFirstName").value.trim().toLowerCase();
-            const selectedService = document.querySelector("#ServiceDropdown option:checked").textContent.toLowerCase();
 
-            document.querySelectorAll("#drivers tbody tr").forEach(row => {
-                const matchesName = !nameInput || row.dataset.firstname.includes(nameInput);
-                const matchesService = !selectedService || row.dataset.service === selectedService;
 
-                row.style.display = (matchesName && matchesService) ? "" : "none";
-            });
-        });
-    </script>
-}
