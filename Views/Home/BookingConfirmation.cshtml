@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "BookingConfirmation";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2 class="text-success">✅ Booking Confirmed</h2>
+    
+    </div>
+
+    <!-- Booking Info -->
+    @if (Model?.Booking != null)
+    {
+        <div class="mb-4">
+            <h4>Booking Info</h4>
+            <p><strong>ID:</strong> @Model.Booking.BookingID</p>
+            <p><strong>Date:</strong> @Model.Booking.BookingDate.ToString("dd MMM yyyy HH:mm")</p>
+            <p><strong>Pickup Time:</strong> @Model.Booking.PickupTime.ToString("HH:mm")</p>
+            <p><strong>Address:</strong> @Model.Booking.PickupAddress</p>
+        </div>
+    }
+
+    <!-- Driver Info -->
+    @if (Model?.Driver != null)
+    {
+        <div class="mb-4">
+            <h4>Driver</h4>
+            <p><strong>Name:</strong> @Model.Driver.FirstName @Model.Driver.LastName</p>
+            <p><strong>Phone:</strong> @Model.Driver.PhoneNumber</p>
+        </div>
+    }
+
+    <!-- Vehicle Info -->
+    @if (Model?.Vehicle != null)
+    {
+        <div class="mb-4">
+            <h4>Vehicle</h4>
+            <p><strong>Type:</strong> @Model.Vehicle.Type</p>
+            <p><strong>Registration:</strong> @Model.Vehicle.RegistrationNumber</p>
+        </div>
+    }
+
+    <div class="text-center">
+        <a href="@Url.Action("MainPage", "Home")" class="btn btn-primary">Return Home</a>
+    </div>
+</div>
+
+

@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort>44360</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -124,6 +124,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BookingConfirmation.cs" />
+    <Compile Include="Models\BookingsList.cs" />
+    <Compile Include="Models\Bookings.cs" />
+    <Compile Include="Models\Drivers.cs" />
+    <Compile Include="Models\DriverList.cs" />
+    <Compile Include="Models\Reasons.cs" />
+    <Compile Include="Models\ReasonsList.cs" />
+    <Compile Include="Models\Services.cs" />
+    <Compile Include="Models\ServicesList.cs" />
+    <Compile Include="Models\Vehicles.cs" />
+    <Compile Include="Models\Assignments.cs" />
+    <Compile Include="Models\VehiclesList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +155,27 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\Images\Drivers\Driver1.jpg" />
+    <Content Include="Content\Images\Drivers\Driver10.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver11.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver12.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver2.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver3.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver4.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver5.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver6.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver7.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver8.jpeg" />
+    <Content Include="Content\Images\Drivers\Driver9.jpeg" />
+    <Content Include="Content\Images\LOGO.png" />
+    <Content Include="Content\Images\MainPageAmbulace.jpg" />
+    <Content Include="Content\Images\Services\AA.jpeg" />
+    <Content Include="Content\Images\Services\ADL.jpg" />
+    <Content Include="Content\Images\Services\BLS.jpeg" />
+    <Content Include="Content\Images\Services\EMA.jpeg" />
+    <Content Include="Content\Images\Services\MDU.jpeg" />
+    <Content Include="Content\Images\Services\PT.jpeg" />
+    <Content Include="Content\Images\SOS.jpeg" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -174,14 +207,16 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
+    <Content Include="Views\Home\NormalBooking.cshtml" />
+    <Content Include="Views\Home\SOSBooking.cshtml" />
+    <Content Include="Views\Home\BookingConfirmation.cshtml" />
+    <Content Include="Views\Home\Services.cshtml" />
+    <Content Include="Views\Home\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

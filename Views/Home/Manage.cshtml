@@ -1,0 +1,122 @@
+﻿@model u23708795_HW_Assignment.Models.Assignments
+@using u23708795_HW_Assignment.Models
+
+@{
+    ViewBag.Title = "Vehicle & Driver Management";
+}
+
+<div class="container py-4">
+
+    <!-- DRIVERS SECTION -->
+    <section class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>🚗 Drivers</h3>
+            <a href="/Driver/Create" class="btn btn-primary">+ Add Driver</a>
+        </div>
+
+        <div class="row g-2 mb-3">
+            <div class="col-md-4">
+                <input id="DriverFirstName" class="form-control" placeholder="Search by name" />
+            </div>
+            <div class="col-md-4">
+                <select id="ServiceDropdown" class="form-select">
+                    <option value="">Filter by Service</option>
+                    @foreach (var s in ViewBag.Services)
+                    {
+                        <option value="@s.ServiceID">@s.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-4">
+                <button id="btn-Search" class="btn btn-success w-100">Search</button>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-sm table-hover text-center" id="drivers">
+            <thead class="table-dark">
+                <tr>
+                    <th>Image</th>
+                    <th>First</th>
+                    <th>Last</th>
+                    <th>Phone</th>
+                    <th>Service</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var d in Model.Drivers)
+                {
+                    var service = ServicesList.Service.FirstOrDefault(s => s.ServiceID == d.ServiceID)?.Name ?? "";
+                    <tr data-firstname="@d.FirstName.ToLower()" data-service="@service.ToLower()">
+                        <td><img src="@d.ImagePath" width="40" class="rounded-circle" /></td>
+                        <td>@d.FirstName</td>
+                        <td>@d.LastName</td>
+                        <td>@d.PhoneNumber</td>
+                        <td>@service</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Driver", new { id = d.DriverID }, new { @class = "btn btn-sm btn-warning me-1 text-white" })
+                            @Html.ActionLink("Delete", "Delete", "Driver", new { id = d.DriverID }, new { @class = "btn btn-sm btn-danger text-white" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+
+    <!-- VEHICLES SECTION -->
+    <section>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Vehicles</h3>
+            <div class="d-flex gap-2">
+                <a href="/Vehicle/Create" class="btn btn-primary">+ Add Vehicle</a>
+                <form method="post" action="@Url.Action("ExportToTextFile", "Vehicle")">
+                    <button type="submit" class="btn btn-success">Export .txt</button>
+                </form>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-sm table-hover text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Image</th>
+                    <th>Type</th>
+                    <th>Registration</th>
+                    <th>Service</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var v in Model.Vehicles)
+                {
+                    var service = ServicesList.Service.FirstOrDefault(s => s.ServiceID == v.ServiceID)?.Name ?? "";
+                    <tr>
+                        <td><img src="@v.ImagePath" width="80" class="rounded" /></td>
+                        <td>@v.Type</td>
+                        <td>@v.RegistrationNumber</td>
+                        <td>@service</td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", "Vehicle", new { id = v.VehicleID }, new { @class = "btn btn-sm btn-warning me-1 text-white" })
+                            @Html.ActionLink("Delete", "Delete", "Vehicle", new { id = v.VehicleID }, new { @class = "btn btn-sm btn-danger text-white" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("btn-Search").addEventListener("click", function () {
+            const nameInput = document.getElementById("DriverFirstName").value.trim().toLowerCase();
+            const selectedService = document.querySelector("#ServiceDropdown option:checked").textContent.toLowerCase();
+
+            document.querySelectorAll("#drivers tbody tr").forEach(row => {
+                const matchesName = !nameInput || row.dataset.firstname.includes(nameInput);
+                const matchesService = !selectedService || row.dataset.service === selectedService;
+
+                row.style.display = (matchesName && matchesService) ? "" : "none";
+            });
+        });
+    </script>
+}

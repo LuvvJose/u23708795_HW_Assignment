@@ -1,0 +1,95 @@
+﻿@model u23708795_HW_Assignment.Models.Bookings
+@{
+    ViewBag.Title = "NormalBooking";
+}
+
+<h2 class="mb-4 text-danger">Book a Ride</h2>
+
+@using (Html.BeginForm("CreateBooking", "Home", FormMethod.Post))
+{
+    
+
+    <div class="p-4 bg-light rounded shadow-sm">
+        <h4 class="mb-3">Booking Details</h4>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <!-- Full Name -->
+        <div class="mb-3">
+            @Html.LabelFor(m => m.FullName, new { @class = "form-label" })
+            @Html.EditorFor(m => m.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-3">
+            @Html.LabelFor(m => m.PhoneNumber, new { @class = "form-label" })
+            @Html.EditorFor(m => m.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Pickup Time -->
+        <div class="mb-3">
+            @Html.LabelFor(m => m.PickupTime, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.PickupTime, new { @class = "form-control", type = "time" })
+            @Html.ValidationMessageFor(m => m.PickupTime, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Pickup Address -->
+        <div class="mb-3">
+            @Html.LabelFor(m => m.PickupAddress, new { @class = "form-label" })
+            @Html.TextAreaFor(m => m.PickupAddress, new { @class = "form-control", rows = 4 })
+            @Html.ValidationMessageFor(m => m.PickupAddress, "", new { @class = "text-danger" })
+        </div>
+
+     
+        <input type="hidden" id="isSOS" name="isSOS" value="true" />
+
+        <!-- Booking Date -->
+        <div class="mb-3">
+            @Html.LabelFor(m => m.BookingDate, new { @class = "form-label" })
+            @Html.TextBoxFor(m => m.BookingDate, new { @class = "form-control", type = "datetime-local" })
+            @Html.ValidationMessageFor(m => m.BookingDate, "", new { @class = "text-danger" })
+        </div>
+
+        <!-- Driver Dropdown -->
+        <div class="mb-3">
+            <label for="DriverID" class="form-label">Select Driver</label>
+            <select id="DriverID" name="DriverID" class="form-select">
+                @foreach (var driver in ViewBag.drivers)
+                {
+                    <option value="@driver.DriverID">@driver.FirstName @driver.LastName</option>
+                }
+            </select>
+        </div>
+
+        <!-- Vehicle Dropdown -->
+        <div class="mb-3">
+            <label for="VehicleID" class="form-label">Select Vehicle</label>
+            <select id="VehicleID" name="VehicleID" class="form-select">
+                @foreach (var vehicle in ViewBag.Vehicles)
+                {
+                    <option value="@vehicle.VehicleID">@vehicle.Type - @vehicle.RegistrationNumber</option>
+                }
+            </select>
+        </div>
+
+        <!-- Hidden Service ID -->
+        <input type="hidden" id="ServiceID" name="ServiceID" value="@ViewBag.ServiceID" />
+
+        <!-- Reason Dropdown -->
+        <div class="mb-4">
+            <label for="ReasonID" class="form-label">Select Reason</label>
+            <select id="ReasonID" name="ReasonID" class="form-select">
+                @foreach (var reason in ViewBag.reasons)
+                {
+                    <option value="@reason.ReasonID">@reason.Description</option>
+                }
+            </select>
+        </div>
+
+        <!-- Submit -->
+        <div>
+            <input type="submit" value="Create Booking" class="btn btn-danger px-4" />
+        </div>
+    </div>
+}

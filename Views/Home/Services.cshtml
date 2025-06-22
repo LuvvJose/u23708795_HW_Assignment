@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Services";
+}
+
+<h2 class="text-center my-4 text-danger">SELECT A SERVICE...</h2>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm border-0">
+                <a href="@Url.Action("NormalBooking", "Home", new { id = item.ServiceID })" class="text-decoration-none text-dark">
+                    <img src="@Url.Content(item.ImagePath)" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@item.Name" />
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text text-secondary">@item.Description</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>
