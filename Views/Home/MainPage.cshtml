@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "MainPage";
+}
+
+<div class="container py-5">
+    <!-- HERO SECTION (Reordered) -->
+    <div class="row align-items-center g-5 mb-5">
+        <div class="col-lg-6 order-lg-2 text-center">
+            <img src="~/Content/Images/Ambulance.png" class="img-fluid rounded shadow-lg" alt="Emergency Ambulance" width="500">
+        </div>
+        <div class="col-lg-6 order-lg-1">
+            <h1 class="display-5 fw-bold text-danger">Worry no more, we here for you</h1>
+            <p class="fs-5 text-muted">
+                Count on us when every second matters. Our rescue team is trained and ready to act.
+            </p>
+            <a href="/Home/Services" class="btn btn-danger btn-lg mt-3 shadow-sm">
+                Book Ambulance Now
+            </a>
+        </div>
+    </div>
+
+    <!-- SOS SECTION (Stylized differently) -->
+    <div class="bg-danger-subtle p-5 rounded shadow-sm">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center mb-4 mb-md-0">
+                <a href="/Home/SOSBooking" aria-label="SOS Emergency Booking">
+                    <img src="~/Content/Images/SOS.jpg"
+                         class="img-fluid rounded-circle border border-danger border-3 shadow hover-scale"
+                         alt="SOS Emergency Icon"
+                         width="180"
+                         style="cursor: pointer;">
+                </a>
+            </div>
+            <div class="col-md-6 text-center text-md-start">
+                <h2 class="text-danger fw-bold mb-3">🚨 Immediate S.O.S Assistance</h2>
+                <p class="text-muted">
+                    Facing a critical emergency? Activate our rapid-response team instantly. One tap gets help on the way immediately with no delays.
+                </p>
+                <a href="/Home/SOSBooking" class="btn btn-outline-danger btn-lg fw-semibold mt-2">
+                    Tap for SOS Response
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
